@@ -1,0 +1,99 @@
+/* src/styles/NewsCard.css */
+.news-card {
+    max-width: 320px;
+    min-height: 380px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: #1e1e2e;
+    color: #ffffff;
+    position: relative;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.news-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.news-card-content {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.news-card p {
+    color: #d1d1d1;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+}
+
+.news-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+.news-card button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+}
+
+.news-card button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.news-card .source {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Category indicator (simple colored dot) */
+.news-card::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4a8eff; /* Default color */
+}
+
+/* Category-specific colors */
+.news-card.tech::after { background: #4a8eff; }
+.news-card.sports::after { background: #4caf50; }
+.news-card.politics::after { background: #f44336; }
+.news-card.entertainment::after { background: #ff9800; }
+.news-card.ai::after { background: #9c27b0; }
+.news-card.cybersecurity::after { background: #00bcd4; }
+.news-card.economy::after { background: #ffeb3b; }
+.news-card.wars::after { background: #795548; }

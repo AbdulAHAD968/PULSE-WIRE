@@ -1,0 +1,172 @@
+:root {
+  --bg-color: #f4f1ee;
+  --card-bg: #e0c9a6;
+  --accent: #b86b35;
+  --accent-light: #f5d1b3;
+  --text: #4b3b2a;
+  --border-color: #c1a57b;
+  --highlight: #a44a3f;
+  --header-height: 60px;
+}
+
+/* Reset and Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Page Layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.page-container {
+  margin-top: var(--header-height);
+}
+
+.content-container {
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.news-feed {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.6rem;
+  max-width: 1400px;
+  padding: 1rem;
+  margin: 0 auto;
+
+  /* ADD THIS */
+  justify-content: center;
+}
+/* Keeps card width stable instead of stretching */
+.news-feed > * {
+  max-width: 100%;
+}
+
+@media (min-width: 600px) {
+  .news-feed {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-feed {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Glass Cards */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Buttons */
+.modern-btn {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modern-btn:hover {
+  background-color: var(--accent);
+  color: var(--bg-color);
+  transform: translateY(-2px);
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error State */
+.error-message {
+  background: rgba(255, 0, 0, 0.1);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+.error-message button {
+  margin-top: 1rem;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Misc */
+.section-title {
+  text-align: center;
+  margin: 2rem 0 1rem;
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+.no-results {
+  text-align: center;
+  grid-column: 1 / -1;
+  margin: 2rem 0;
+  opacity: 0.7;
+}
