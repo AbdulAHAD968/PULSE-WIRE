@@ -23,13 +23,10 @@
 ---
 
 ## 📸 Screenshots
-
-> *(Add images in `/assets` or directly using image links if hosted)*
-
-![Landing Page](1.png)
-![Home Page](2.png)
-![Search Results](3.png)
-![Filters](4.png)
+![Landing Page](1.PNG)
+![Home Page](2.PNG)
+![Search Results](3.PNG)
+![Filters](4.PNG)
 
 ---
 
@@ -63,6 +60,7 @@ cd pulse-wire
 
 ## 📦 Folder Structure
 
+```bash
 src/
 │
 ├── components/       # Reusable UI components (e.g., NewsCard, SearchBar)
@@ -70,6 +68,7 @@ src/
 ├── pages/            # Page-level components (e.g., Home.jsx)
 ├── styles/           # CSS files
 └── App.jsx           # Root component
+```
 
 ---
 
