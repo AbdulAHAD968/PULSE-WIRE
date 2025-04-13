@@ -11,38 +11,41 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const API_KEY = "e75d998a559d4e94bdd64f89772ffdac";
-  const BASE_URL = "https://newsapi.org/v2";
+  const API_KEY = "66c7e8ff-14c0-4001-8b8b-81c3c146cf90"; // Replace with your actual key
+  const BASE_URL = "https://content.guardianapis.com";
 
   const fetchNews = async (query = "") => {
     setLoading(true);
     setError(null);
+
     try {
-      let url = `${BASE_URL}/top-headlines?country=us&pageSize=20&apiKey=${API_KEY}`;
-      
+      let url = `${BASE_URL}/search?api-key=${API_KEY}&show-fields=thumbnail,trailText,bodyText&order-by=newest&page-size=20`;
+
       if (query) {
-        url = `${BASE_URL}/everything?q=${encodeURIComponent(query)}&sortBy=popularity&apiKey=${API_KEY}`;
+        url += `&q=${encodeURIComponent(query)}`;
       }
 
       const response = await axios.get(url);
-      const articlesWithCategories = response.data.articles.map(article => ({
-        ...article,
-        // Add random category for styling
+      const results = response.data.response.results;
+
+      const articlesWithCategories = results.map((article) => ({
+        title: article.webTitle,
+        url: article.webUrl,
+        urlToImage: article.fields?.thumbnail || "https://via.placeholder.com/300",
+        description: article.fields?.trailText || "No description available",
+        content: article.fields?.bodyText || "",
+        publishedAt: article.webPublicationDate,
+        source: { name: "The Guardian" },
         category: ["tech", "sports", "politics", "entertainment"][
           Math.floor(Math.random() * 4)
         ],
-        // Ensure all required fields exist
-        urlToImage: article.urlToImage || "https://via.placeholder.com/300",
-        description: article.description || "No description available",
-        source: article.source || { name: "Unknown Source" }
       }));
+
       setNews(articlesWithCategories);
-    } 
-    catch(err){
+    } catch (err) {
       setError("Failed to fetch news. Please try again later.");
-      console.error("NewsAPI Error:", err);
-    }
-    finally{
+      console.error("The Guardian API Error:", err);
+    } finally {
       setLoading(false);
     }
   };
@@ -62,38 +65,31 @@ export default function Home() {
 
   return (
     <div className="page-container">
-      
       <SearchBar onSearch={handleSearch} />
-      
-      {
-      loading ? (
+
+      {loading ? (
         <div className="loading-container">
           <div className="loading-spinner"></div>
           <p>Loading latest news...</p>
         </div>
-      ) 
-      : error ? (
+      ) : error ? (
         <div className="error-message">
           <p>{error}</p>
           <button onClick={() => fetchNews()}>Retry</button>
         </div>
-      ) 
-      : (
+      ) : (
         <>
           <h2 className="section-title">
             {searchQuery ? `Search Results for "${searchQuery}"` : "Top Headlines"}
           </h2>
           <div className="news-feed">
-            {
-              news.length > 0 ? (
-                news.map((article) => (
-                  <NewsCard key={article.url} article={article} />
-                ))
-              ) 
-              : (
-                <p className="no-results">No articles found. Try a different search.</p>
-              )
-            }
+            {news.length > 0 ? (
+              news.map((article) => (
+                <NewsCard key={article.url} article={article} />
+              ))
+            ) : (
+              <p className="no-results">No articles found. Try a different search.</p>
+            )}
           </div>
         </>
       )}
