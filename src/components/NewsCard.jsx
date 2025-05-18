@@ -7,22 +7,32 @@ export default function NewsCard({ article }) {
     if (article.category) {
       return article.category.toLowerCase();
     }
-    // Fallback categories
     const categories = ['tech', 'sports', 'politics', 'entertainment'];
     return categories[Math.floor(Math.random() * categories.length)];
   };
 
   const cardType = getCardType();
 
-  const saveArticle = () => {
+  const saveArticle = (e) => {
+    e.stopPropagation(); // Prevent card click
     const saved = JSON.parse(localStorage.getItem("bookmarks")) || [];
     if (!saved.some((item) => item.url === article.url)) {
       localStorage.setItem("bookmarks", JSON.stringify([...saved, article]));
     }
   };
 
+  const openArticle = () => {
+    if (article.url) {
+      window.open(article.url, "_blank");
+    }
+  };
+
   return (
-    <div className={`news-card ${cardType}`}>
+    <div 
+      className={`news-card ${cardType}`} 
+      onClick={openArticle}
+      style={{ cursor: "pointer" }}
+    >
       <img 
         src={article.urlToImage || "https://via.placeholder.com/300"} 
         alt={article.title} 
